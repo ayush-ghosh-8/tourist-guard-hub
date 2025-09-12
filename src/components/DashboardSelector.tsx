@@ -1,18 +1,30 @@
-import { Shield, MapPin, AlertTriangle, Users } from "lucide-react";
+import { Shield, MapPin, AlertTriangle, Users, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface DashboardSelectorProps {
   onSelect: (type: 'state' | 'zonal') => void;
+  onBack?: () => void;
 }
 
-const DashboardSelector = ({ onSelect }: DashboardSelectorProps) => {
+const DashboardSelector = ({ onSelect, onBack }: DashboardSelectorProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-muted/40">
       {/* Header */}
       <div className="gradient-police text-primary-foreground py-8">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center space-x-4">
+          <div className="flex items-center justify-center space-x-4 relative">
+            {onBack && (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={onBack} 
+                className="absolute left-0 text-primary-foreground hover:bg-primary-foreground/10"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back
+              </Button>
+            )}
             <div className="relative">
               <Shield className="h-16 w-16 text-police-gold animate-pulse-slow" />
               <div className="absolute inset-0 bg-police-gold/20 rounded-full blur animate-pulse"></div>
