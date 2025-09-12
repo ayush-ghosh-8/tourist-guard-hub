@@ -17,24 +17,22 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 220 15% 15%;
 
-    /* Official Police Colors */
-    --primary: 220 95% 20%;
+    /* Official Government Colors */
+    --primary: 0 65% 45%;
     --primary-foreground: 0 0% 98%;
     
-    --police-blue: 220 95% 20%;
-    --police-blue-light: 220 90% 30%;
-    --police-blue-dark: 220 100% 15%;
-    --police-gold: 45 95% 55%;
-    --police-gold-light: 45 90% 65%;
+    --gov-red: 0 65% 45%;
+    --gov-blue: 217 91% 50%;
+    --gov-gold: 45 95% 55%;
     
-    --secondary: 220 20% 95%;
-    --secondary-foreground: 220 95% 20%;
+    --secondary: 217 91% 50%;
+    --secondary-foreground: 0 0% 98%;
 
     --muted: 220 15% 96%;
     --muted-foreground: 220 10% 45%;
 
     --accent: 45 95% 55%;
-    --accent-foreground: 220 95% 20%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -47,7 +45,7 @@ All colors MUST be HSL.
 
     --border: 220 15% 85%;
     --input: 220 15% 90%;
-    --ring: 220 95% 20%;
+    --ring: 0 65% 45%;
 
     --radius: 0.5rem;
 
@@ -78,16 +76,14 @@ All colors MUST be HSL.
     --popover: 220 25% 10%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 220 90% 60%;
-    --primary-foreground: 220 25% 8%;
+    --primary: 0 65% 55%;
+    --primary-foreground: 0 0% 98%;
     
-    --police-blue: 220 90% 60%;
-    --police-blue-light: 220 85% 70%;
-    --police-blue-dark: 220 95% 50%;
-    --police-gold: 45 90% 60%;
-    --police-gold-light: 45 85% 70%;
+    --gov-red: 0 65% 55%;
+    --gov-blue: 217 85% 60%;
+    --gov-gold: 45 90% 60%;
 
-    --secondary: 220 20% 15%;
+    --secondary: 217 85% 60%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 220 15% 18%;
@@ -107,7 +103,7 @@ All colors MUST be HSL.
 
     --border: 220 15% 20%;
     --input: 220 15% 20%;
-    --ring: 220 90% 60%;
+    --ring: 0 65% 55%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -129,16 +125,16 @@ All colors MUST be HSL.
   }
   
   /* Custom gradient utilities */
-  .gradient-police {
-    background: linear-gradient(135deg, hsl(var(--police-blue)), hsl(var(--police-blue-light)));
+  .gradient-gov {
+    background: linear-gradient(135deg, hsl(var(--gov-red)), hsl(var(--gov-blue)));
   }
   
   .gradient-gold {
-    background: linear-gradient(135deg, hsl(var(--police-gold)), hsl(var(--police-gold-light)));
+    background: linear-gradient(135deg, hsl(var(--gov-gold)), hsl(var(--gov-gold) / 0.8));
   }
   
-  .police-shadow {
-    box-shadow: 0 10px 30px -10px hsl(var(--police-blue) / 0.3);
+  .gov-shadow {
+    box-shadow: 0 4px 15px -5px hsl(var(--primary) / 0.2);
   }
   
   .animate-pulse-slow {

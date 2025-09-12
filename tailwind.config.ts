@@ -47,12 +47,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        police: {
-          blue: "hsl(var(--police-blue))",
-          "blue-light": "hsl(var(--police-blue-light))",
-          "blue-dark": "hsl(var(--police-blue-dark))",
-          gold: "hsl(var(--police-gold))",
-          "gold-light": "hsl(var(--police-gold-light))",
+        gov: {
+          red: "hsl(var(--gov-red))",
+          blue: "hsl(var(--gov-blue))",
+          gold: "hsl(var(--gov-gold))",
         },
         success: {
           DEFAULT: "hsl(var(--success))",
