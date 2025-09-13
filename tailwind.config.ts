@@ -52,6 +52,11 @@ export default {
           blue: "hsl(var(--gov-blue))",
           gold: "hsl(var(--gov-gold))",
         },
+        police: {
+          red: "hsl(var(--gov-red))",
+          blue: "hsl(var(--gov-blue))",
+          gold: "hsl(var(--gov-gold))",
+        },
         success: {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",

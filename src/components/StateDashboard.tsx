@@ -79,8 +79,8 @@ const StateDashboard = ({ onBack }: StateDashboardProps) => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Top Navigation Bar */}
-      <div className="gradient-police text-primary-foreground py-4 border-b">
+      {/* Top Navigation Bar - Official Government Style */}
+      <div className="gradient-police text-white py-4 border-b shadow-sm">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -88,29 +88,31 @@ const StateDashboard = ({ onBack }: StateDashboardProps) => {
                 variant="ghost" 
                 size="sm" 
                 onClick={onBack}
-                className="text-primary-foreground hover:bg-white/10"
+                className="text-white hover:bg-white/10 border border-white/20"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
+                Back to Selector
               </Button>
               <div className="flex items-center space-x-3">
-                <Shield className="h-8 w-8 text-police-gold" />
+                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                  <Shield className="h-6 w-6 text-police-gold" />
+                </div>
                 <div>
-                  <h1 className="text-xl font-bold">State Police Dashboard</h1>
-                  <p className="text-sm text-primary-foreground/80">Command Center</p>
+                  <h1 className="text-xl font-bold">State Police Control Center</h1>
+                  <p className="text-sm opacity-90">Tourist Safety & Security Division</p>
                 </div>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-white/10">
+            <div className="flex items-center space-x-3">
+              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
                 <Globe className="h-4 w-4 mr-2" />
                 EN | हिं
               </Button>
-              <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-white/10 relative">
+              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 relative">
                 <Bell className="h-4 w-4" />
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-warning text-warning-foreground text-xs">
+                <span className="absolute -top-1 -right-1 h-5 w-5 bg-warning text-warning-foreground rounded-full text-xs flex items-center justify-center">
                   3
-                </Badge>
+                </span>
               </Button>
             </div>
           </div>
