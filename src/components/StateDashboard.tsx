@@ -16,6 +16,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { stateAlerts, stateCases, stateStats } from "@/data/mockData";
+import SOSMonitoring from "@/components/modules/SOSMonitoring";
+import CaseManagement from "@/components/modules/CaseManagement";
+import TouristVerification from "@/components/modules/TouristVerification";
+import HotspotMapping from "@/components/modules/HotspotMapping";
 
 interface StateDashboardProps {
   onBack: () => void;
@@ -273,52 +277,32 @@ const StateDashboard = ({ onBack }: StateDashboardProps) => {
               </div>
             )}
 
-            {/* Module-specific content would go here */}
-            {activeModule !== 'overview' && (
+            {/* Module-specific content */}
+            {activeModule === 'sos' && <SOSMonitoring />}
+            {activeModule === 'cases' && <CaseManagement />}
+            {activeModule === 'verification' && <TouristVerification />}
+            {activeModule === 'hotspots' && <HotspotMapping />}
+            {activeModule === 'coordination' && (
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
-                    {(() => {
-                      const module = modules.find(m => m.id === activeModule);
-                      if (module) {
-                        const Icon = module.icon;
-                        return (
-                          <>
-                            <Icon className={`h-6 w-6 ${module.color}`} />
-                            <span>{module.name}</span>
-                          </>
-                        );
-                      }
-                      return null;
-                    })()}
+                    <Users className="h-6 w-6 text-success" />
+                    <span>Coordination Panel</span>
                   </CardTitle>
-                  <CardDescription>
-                    {modules.find(m => m.id === activeModule)?.description}
-                  </CardDescription>
+                  <CardDescription>Inter-agency handover and officer assignment</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-12 text-muted-foreground">
-                    <div className="mb-4">
-                      {(() => {
-                        const module = modules.find(m => m.id === activeModule);
-                        if (module) {
-                          const Icon = module.icon;
-                          return <Icon className={`h-16 w-16 mx-auto ${module.color} opacity-50`} />;
-                        }
-                        return null;
-                      })()}
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">Module Interface</h3>
-                    <p className="max-w-md mx-auto">
-                      This is a preview model. The full {modules.find(m => m.id === activeModule)?.name.toLowerCase()} 
-                      interface with real-time data, interactive maps, and detailed forms will be implemented 
-                      in the complete version.
+                    <Users className="h-16 w-16 mx-auto text-success opacity-50 mb-4" />
+                    <h3 className="text-lg font-semibold mb-2">Coordination Module</h3>
+                    <p className="max-w-md mx-auto mb-6">
+                      Real-time coordination with district police, tourism ministry, and other agencies for seamless case handovers.
                     </p>
-                    <div className="mt-6 space-y-2">
-                      <Badge variant="outline" className="mr-2">Real-time Updates</Badge>
-                      <Badge variant="outline" className="mr-2">Interactive Maps</Badge>
-                      <Badge variant="outline" className="mr-2">Data Export</Badge>
-                      <Badge variant="outline">Multi-language</Badge>
+                    <div className="space-y-2">
+                      <Badge variant="outline" className="mr-2">Case Handover</Badge>
+                      <Badge variant="outline" className="mr-2">Officer Assignment</Badge>
+                      <Badge variant="outline" className="mr-2">Inter-agency Chat</Badge>
+                      <Badge variant="outline">Resource Allocation</Badge>
                     </div>
                   </div>
                 </CardContent>
