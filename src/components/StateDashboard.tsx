@@ -9,11 +9,13 @@ import {
   Activity,
   Bell,
   Globe,
-  ArrowLeft
+  ArrowLeft,
+  TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { stateAlerts, stateCases, stateStats } from "@/data/mockData";
 
 interface StateDashboardProps {
   onBack: () => void;
@@ -70,12 +72,6 @@ const StateDashboard = ({ onBack }: StateDashboardProps) => {
     }
   ];
 
-  const recentAlerts = [
-    { id: 1, type: 'SOS', location: 'Red Fort, Delhi', time: '2 min ago', severity: 'high' },
-    { id: 2, type: 'Scam Report', location: 'Connaught Place', time: '15 min ago', severity: 'medium' },
-    { id: 3, type: 'Tourist Verification', location: 'India Gate', time: '32 min ago', severity: 'low' },
-    { id: 4, type: 'Hotspot Alert', location: 'Chandni Chowk', time: '1 hour ago', severity: 'medium' }
-  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -162,19 +158,23 @@ const StateDashboard = ({ onBack }: StateDashboardProps) => {
               <CardContent className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">Active Cases</span>
-                  <Badge variant="destructive">47</Badge>
+                  <Badge variant="destructive">{stateStats.activeCases}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">SOS Alerts</span>
-                  <Badge className="bg-warning text-warning-foreground">12</Badge>
+                  <Badge className="bg-warning text-warning-foreground">{stateStats.sosAlerts}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">Officers On Duty</span>
-                  <Badge className="bg-success text-success-foreground">156</Badge>
+                  <Badge className="bg-success text-success-foreground">{stateStats.officersOnDuty}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Tourist Verifications</span>
-                  <Badge variant="secondary">234</Badge>
+                  <span className="text-sm text-muted-foreground">Response Time</span>
+                  <Badge className="bg-police-blue text-white">{stateStats.responseTime}</Badge>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Resolution Rate</span>
+                  <Badge className="bg-success text-success-foreground">{stateStats.resolutionRate}</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -213,18 +213,18 @@ const StateDashboard = ({ onBack }: StateDashboardProps) => {
                   })}
                 </div>
 
-                {/* Recent Activity */}
+                {/* Recent Alerts */}
                 <Card>
                   <CardHeader>
-                    <CardTitle>Recent Activity</CardTitle>
-                    <CardDescription>Latest alerts and activities across the state</CardDescription>
+                    <CardTitle>Recent State Alerts</CardTitle>
+                    <CardDescription>Latest alerts and emergencies across the state</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      {recentAlerts.map((alert) => (
-                        <div key={alert.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                    <div className="space-y-3">
+                      {stateAlerts.slice(0, 4).map((alert) => (
+                        <div key={alert.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/30 transition-colors">
                           <div className="flex items-center space-x-3">
-                            <div className={`w-3 h-3 rounded-full ${
+                            <div className={`w-2 h-2 rounded-full ${
                               alert.severity === 'high' ? 'bg-destructive animate-pulse' :
                               alert.severity === 'medium' ? 'bg-warning' : 'bg-success'
                             }`}></div>
@@ -235,11 +235,34 @@ const StateDashboard = ({ onBack }: StateDashboardProps) => {
                           </div>
                           <div className="text-right">
                             <p className="text-xs text-muted-foreground">{alert.time}</p>
-                            <Badge 
-                              variant={alert.severity === 'high' ? 'destructive' : 'secondary'}
-                              className="text-xs"
-                            >
-                              {alert.severity.toUpperCase()}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Active Cases */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Active Tourist Cases</CardTitle>
+                    <CardDescription>Currently under investigation</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {stateCases.filter(c => c.status !== 'resolved').map((case_) => (
+                        <div key={case_.id} className="flex items-center justify-between p-3 border rounded-lg">
+                          <div className="space-y-1">
+                            <div className="flex items-center space-x-2">
+                              <p className="font-medium text-sm">{case_.touristName}</p>
+                              <Badge variant="outline" className="text-xs">{case_.nationality}</Badge>
+                            </div>
+                            <p className="text-xs text-muted-foreground">{case_.caseType} • {case_.location}</p>
+                            <p className="text-xs text-police-blue">Officer: {case_.assignedOfficer}</p>
+                          </div>
+                          <div className="text-right">
+                            <Badge variant={case_.status === 'investigating' ? 'default' : 'secondary'} className="text-xs">
+                              {case_.status}
                             </Badge>
                           </div>
                         </div>

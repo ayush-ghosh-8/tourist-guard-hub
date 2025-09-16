@@ -10,11 +10,13 @@ import {
   Globe,
   ArrowLeft,
   Car,
-  UserCheck
+  UserCheck,
+  Clock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { districtIncidents, patrolCars, districtStats } from "@/data/mockData";
 
 interface ZonalDashboardProps {
   onBack: () => void;
@@ -71,19 +73,6 @@ const ZonalDashboard = ({ onBack }: ZonalDashboardProps) => {
     }
   ];
 
-  const localIncidents = [
-    { id: 1, type: 'SOS Alert', location: 'Sector 18 Market', tourist: 'John Smith (UK)', patrol: 'Car-07', status: 'responding', time: '3 min ago' },
-    { id: 2, type: 'Scam Report', location: 'Railway Station', tourist: 'Maria Garcia (Spain)', patrol: 'Car-12', status: 'investigating', time: '18 min ago' },
-    { id: 3, type: 'Geo-fence Alert', location: 'Old City Area', tourist: 'David Chen (China)', patrol: 'Car-03', status: 'monitoring', time: '45 min ago' },
-    { id: 4, type: 'Merchant Alert', location: 'Shopping Complex', tourist: 'Sarah Johnson (USA)', patrol: 'Car-15', status: 'resolved', time: '2 hours ago' }
-  ];
-
-  const patrolStatus = [
-    { car: 'Car-07', status: 'responding', location: 'Sector 18', officer: 'SI Sharma', eta: '3 min' },
-    { car: 'Car-12', status: 'investigating', location: 'Railway Station', officer: 'HC Patel', eta: 'On site' },
-    { car: 'Car-03', status: 'patrolling', location: 'Tourist Area', officer: 'Const. Kumar', eta: 'Available' },
-    { car: 'Car-15', status: 'available', location: 'Police Station', officer: 'SI Singh', eta: 'Ready' }
-  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -114,7 +103,7 @@ const ZonalDashboard = ({ onBack }: ZonalDashboardProps) => {
             <div className="flex items-center space-x-3">
               <div className="px-3 py-1 bg-success/20 rounded-full border border-success/30">
                 <UserCheck className="h-4 w-4 inline mr-1 text-success" />
-                <span className="text-sm text-success font-medium">4 Patrols Active</span>
+                <span className="text-sm text-success font-medium">{districtStats.patrolCarsActive} Patrols Active</span>
               </div>
               <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
                 <Globe className="h-4 w-4 mr-2" />
@@ -175,11 +164,12 @@ const ZonalDashboard = ({ onBack }: ZonalDashboardProps) => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                {patrolStatus.map((patrol) => (
-                  <div key={patrol.car} className="flex items-center justify-between text-sm">
+                {patrolCars.map((patrol) => (
+                  <div key={patrol.car} className="flex items-center justify-between text-sm p-2 border rounded">
                     <div>
                       <p className="font-medium">{patrol.car}</p>
                       <p className="text-xs text-muted-foreground">{patrol.officer}</p>
+                      <p className="text-xs text-police-blue">{patrol.location}</p>
                     </div>
                     <div className="text-right">
                       <Badge 
@@ -192,7 +182,10 @@ const ZonalDashboard = ({ onBack }: ZonalDashboardProps) => {
                       >
                         {patrol.status}
                       </Badge>
-                      <p className="text-xs text-muted-foreground">{patrol.eta}</p>
+                      <p className="text-xs text-muted-foreground flex items-center">
+                        <Clock className="w-3 h-3 mr-1" />
+                        {patrol.eta}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -237,25 +230,33 @@ const ZonalDashboard = ({ onBack }: ZonalDashboardProps) => {
                 <Card>
                   <CardHeader>
                     <CardTitle>Live District Incidents</CardTitle>
-                    <CardDescription>Real-time incident monitoring and patrol assignment</CardDescription>
+                    <CardDescription>Real-time incident monitoring and patrol coordination</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      {localIncidents.map((incident) => (
-                        <div key={incident.id} className="flex items-center justify-between p-4 bg-muted/30 rounded-lg border">
-                          <div className="flex items-center space-x-4">
-                            <div className={`w-3 h-3 rounded-full ${
+                    <div className="space-y-3">
+                      {districtIncidents.map((incident) => (
+                        <div key={incident.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/20 transition-colors">
+                          <div className="flex items-center space-x-3">
+                            <div className={`w-2 h-2 rounded-full ${
                               incident.status === 'responding' ? 'bg-destructive animate-pulse' :
                               incident.status === 'investigating' ? 'bg-warning' :
                               incident.status === 'monitoring' ? 'bg-police-blue' : 'bg-success'
                             }`}></div>
-                            <div>
-                              <div className="flex items-center space-x-2 mb-1">
+                            <div className="space-y-1">
+                              <div className="flex items-center space-x-2">
                                 <p className="font-medium text-sm">{incident.type}</p>
                                 <Badge variant="outline" className="text-xs">{incident.location}</Badge>
                               </div>
-                              <p className="text-xs text-muted-foreground">Tourist: {incident.tourist}</p>
-                              <p className="text-xs text-police-blue">Assigned: {incident.patrol}</p>
+                              <p className="text-xs text-muted-foreground">{incident.tourist}</p>
+                              <div className="flex items-center space-x-2">
+                                <p className="text-xs text-police-blue">{incident.patrol}</p>
+                                <Badge 
+                                  variant={incident.priority === 'urgent' ? 'destructive' : 'secondary'}
+                                  className="text-xs"
+                                >
+                                  {incident.priority}
+                                </Badge>
+                              </div>
                             </div>
                           </div>
                           <div className="text-right">
@@ -267,7 +268,7 @@ const ZonalDashboard = ({ onBack }: ZonalDashboardProps) => {
                               }
                               className="text-xs mb-1"
                             >
-                              {incident.status.toUpperCase()}
+                              {incident.status}
                             </Badge>
                             <p className="text-xs text-muted-foreground">{incident.time}</p>
                           </div>
@@ -277,30 +278,27 @@ const ZonalDashboard = ({ onBack }: ZonalDashboardProps) => {
                   </CardContent>
                 </Card>
 
-                {/* Quick Actions */}
+                {/* Performance Metrics */}
                 <div className="grid md:grid-cols-3 gap-4">
-                  <Card className="text-center">
-                    <CardContent className="pt-6">
-                      <AlertTriangle className="h-8 w-8 text-warning mx-auto mb-2" />
-                      <h3 className="font-semibold mb-2">Emergency Response</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Avg. response time: 4.2 min</p>
-                      <Badge className="bg-success text-success-foreground">Excellent</Badge>
+                  <Card className="text-center border-l-4 border-l-warning">
+                    <CardContent className="pt-4">
+                      <AlertTriangle className="h-6 w-6 text-warning mx-auto mb-2" />
+                      <div className="text-2xl font-bold text-warning">{districtStats.activeIncidents}</div>
+                      <p className="text-sm text-muted-foreground">Active Incidents</p>
                     </CardContent>
                   </Card>
-                  <Card className="text-center">
-                    <CardContent className="pt-6">
-                      <Users className="h-8 w-8 text-police-blue mx-auto mb-2" />
-                      <h3 className="font-semibold mb-2">Tourist Safety</h3>
-                      <p className="text-sm text-muted-foreground mb-4">156 tourists monitored</p>
-                      <Badge variant="secondary">24/7 Active</Badge>
+                  <Card className="text-center border-l-4 border-l-police-blue">
+                    <CardContent className="pt-4">
+                      <Users className="h-6 w-6 text-police-blue mx-auto mb-2" />
+                      <div className="text-2xl font-bold text-police-blue">{districtStats.touristsTracked}</div>
+                      <p className="text-sm text-muted-foreground">Tourists Tracked</p>
                     </CardContent>
                   </Card>
-                  <Card className="text-center">
-                    <CardContent className="pt-6">
-                      <BarChart3 className="h-8 w-8 text-success mx-auto mb-2" />
-                      <h3 className="font-semibold mb-2">Case Resolution</h3>
-                      <p className="text-sm text-muted-foreground mb-4">95.2% resolution rate</p>
-                      <Badge className="bg-success text-success-foreground">Target Met</Badge>
+                  <Card className="text-center border-l-4 border-l-success">
+                    <CardContent className="pt-4">
+                      <BarChart3 className="h-6 w-6 text-success mx-auto mb-2" />
+                      <div className="text-2xl font-bold text-success">{districtStats.performanceScore}</div>
+                      <p className="text-sm text-muted-foreground">Resolution Rate</p>
                     </CardContent>
                   </Card>
                 </div>
