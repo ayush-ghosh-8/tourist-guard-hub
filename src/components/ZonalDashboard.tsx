@@ -20,9 +20,10 @@ import { districtIncidents, patrolCars, districtStats } from "@/data/mockData";
 
 interface ZonalDashboardProps {
   onBack: () => void;
+  onLogout: () => void;
 }
 
-const ZonalDashboard = ({ onBack }: ZonalDashboardProps) => {
+const ZonalDashboard = ({ onBack, onLogout }: ZonalDashboardProps) => {
   const [activeModule, setActiveModule] = useState<string>('overview');
 
   const modules = [
@@ -114,6 +115,14 @@ const ZonalDashboard = ({ onBack }: ZonalDashboardProps) => {
                 <span className="absolute -top-1 -right-1 h-5 w-5 bg-warning text-warning-foreground rounded-full text-xs flex items-center justify-center">
                   8
                 </span>
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={onLogout}
+                className="text-white border-white/20 hover:bg-white/10"
+              >
+                Logout
               </Button>
             </div>
           </div>
