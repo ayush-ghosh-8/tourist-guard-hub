@@ -396,3 +396,153 @@ export const districtStats = {
   performanceScore: '95.2%',
   patrolCarsActive: 6
 };
+
+// Enhanced Zonal/District Data
+export const zonalAlerts = [
+  {
+    id: 1,
+    type: "Tourist Scam Report",
+    severity: "high",
+    location: "Connaught Place, Delhi",
+    time: "2 mins ago",
+    touristId: "TIN789012",
+    status: "active",
+    description: "Tourist reports overcharging at souvenir shop",
+    patrolAssigned: "DL-P-03"
+  },
+  {
+    id: 2,
+    type: "Lost Tourist",
+    severity: "medium",
+    location: "Red Fort Area",
+    time: "8 mins ago",
+    touristId: "TIN456789",
+    status: "active",
+    description: "German tourist separated from group",
+    patrolAssigned: "DL-P-07"
+  },
+  {
+    id: 3,
+    type: "Medical Emergency",
+    severity: "urgent",
+    location: "India Gate",
+    time: "15 mins ago",
+    touristId: "TIN234567",
+    status: "responding",
+    description: "Tourist experiencing chest pain",
+    patrolAssigned: "DL-P-01"
+  }
+];
+
+export const zonalCases = [
+  {
+    id: "ZC001",
+    touristName: "Sarah Johnson",
+    touristId: "TIN789012",
+    nationality: "USA",
+    caseType: "Fraud Complaint",
+    description: "Overcharged ₹5000 for taxi ride from airport",
+    location: "IGI Airport to Karol Bagh",
+    dateReported: "2024-01-15",
+    status: "investigating",
+    priority: "high",
+    assignedOfficer: "Insp. Rajesh Kumar",
+    evidence: ["Receipt copy", "Taxi number plate photo"],
+    resolution: "",
+    merchantDetails: {
+      name: "Delhi Taxi Service",
+      license: "DL-TAX-2023-4567",
+      contact: "+91-9876543210"
+    }
+  },
+  {
+    id: "ZC002",
+    touristName: "Hans Mueller",
+    touristId: "TIN456789",
+    nationality: "Germany",
+    caseType: "Theft Report",
+    description: "Wallet stolen from hotel room",
+    location: "Hotel Ashoka, Chanakyapuri",
+    dateReported: "2024-01-14",
+    status: "resolved",
+    priority: "medium",
+    assignedOfficer: "SI. Priya Sharma",
+    evidence: ["CCTV footage", "Hotel staff statement"],
+    resolution: "Wallet recovered, suspect arrested",
+    merchantDetails: null
+  }
+];
+
+export const zonalTourists = [
+  {
+    id: "TIN789012",
+    name: "Sarah Johnson",
+    nationality: "USA",
+    passportNumber: "US123456789",
+    age: 28,
+    gender: "Female",
+    riskLevel: "low",
+    verificationStatus: "verified",
+    lastScanned: "2024-01-15 14:30",
+    location: "Connaught Place",
+    accommodation: "Hotel Metropolitan",
+    emergencyContact: "+1-555-0123",
+    entryDate: "2024-01-10",
+    plannedExit: "2024-01-20"
+  },
+  {
+    id: "TIN456789",
+    name: "Hans Mueller",
+    nationality: "Germany", 
+    passportNumber: "DE987654321",
+    age: 45,
+    gender: "Male",
+    riskLevel: "medium",
+    verificationStatus: "pending",
+    lastScanned: "2024-01-15 12:15",
+    location: "Red Fort",
+    accommodation: "Hotel Ashoka",
+    emergencyContact: "+49-123-456789",
+    entryDate: "2024-01-12",
+    plannedExit: "2024-01-22"
+  }
+];
+
+export const zonalPatrolCars = [
+  { car: "DL-P-01", officer: "SI. Amit Verma", status: "responding", location: "India Gate", eta: "3 mins" },
+  { car: "DL-P-03", officer: "Const. Ravi Singh", status: "investigating", location: "Connaught Place", eta: "On site" },
+  { car: "DL-P-07", officer: "HC. Sunita Devi", status: "patrolling", location: "Red Fort Area", eta: "5 mins" },
+  { car: "DL-P-12", officer: "Const. Manoj Kumar", status: "available", location: "CP Metro Station", eta: "8 mins" }
+];
+
+export const zonalHotspots = [
+  {
+    id: 1,
+    name: "Connaught Place Market",
+    location: "Connaught Place, Delhi",
+    riskLevel: "high",
+    incidentCount: 15,
+    recentIncidents: ["Overcharging", "Fake goods", "Aggressive vendors"],
+    recommendations: ["Increase patrol frequency", "Tourist awareness campaign"],
+    coordinates: { lat: 28.6315, lng: 77.2167 }
+  },
+  {
+    id: 2,
+    name: "Karol Bagh Main Market",
+    location: "Karol Bagh, Delhi",
+    riskLevel: "medium",
+    incidentCount: 8,
+    recentIncidents: ["Price manipulation", "Quality issues"],
+    recommendations: ["Vendor license verification", "Price display enforcement"],
+    coordinates: { lat: 28.6519, lng: 77.1909 }
+  }
+];
+
+export const zonalStats = {
+  activeIncidents: 8,
+  touristsTracked: 156,
+  patrolCarsActive: 4,
+  performanceScore: "92.1%",
+  qrScansToday: 89,
+  casesResolved: 15
+};

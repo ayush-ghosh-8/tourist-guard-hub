@@ -16,7 +16,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { districtIncidents, patrolCars, districtStats } from "@/data/mockData";
+import { zonalAlerts, zonalPatrolCars, zonalStats } from "@/data/mockData";
+import ZonalSOSMonitoring from "./modules/ZonalSOSMonitoring";
+import ZonalCaseManagement from "./modules/ZonalCaseManagement";
+import ZonalTouristVerification from "./modules/ZonalTouristVerification";
 
 interface ZonalDashboardProps {
   onBack: () => void;
@@ -314,56 +317,32 @@ const ZonalDashboard = ({ onBack, onLogout }: ZonalDashboardProps) => {
               </div>
             )}
 
-            {/* Module-specific content would go here */}
             {activeModule !== 'overview' && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    {(() => {
-                      const module = modules.find(m => m.id === activeModule);
-                      if (module) {
-                        const Icon = module.icon;
-                        return (
-                          <>
-                            <Icon className={`h-6 w-6 ${module.color}`} />
-                            <span>{module.name}</span>
-                          </>
-                        );
-                      }
-                      return null;
-                    })()}
-                  </CardTitle>
-                  <CardDescription>
-                    {modules.find(m => m.id === activeModule)?.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12 text-muted-foreground">
-                    <div className="mb-4">
-                      {(() => {
-                        const module = modules.find(m => m.id === activeModule);
-                        if (module) {
-                          const Icon = module.icon;
-                          return <Icon className={`h-16 w-16 mx-auto ${module.color} opacity-50`} />;
-                        }
-                        return null;
-                      })()}
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">District Module Interface</h3>
-                    <p className="max-w-md mx-auto">
-                      This is a preview model. The full {modules.find(m => m.id === activeModule)?.name.toLowerCase()} 
-                      interface with interactive maps, real-time geo-tracking, patrol car coordination, 
-                      and detailed investigation tools will be implemented in the complete version.
-                    </p>
-                    <div className="mt-6 space-y-2">
-                      <Badge variant="outline" className="mr-2">GPS Tracking</Badge>
-                      <Badge variant="outline" className="mr-2">Live Updates</Badge>
-                      <Badge variant="outline" className="mr-2">Patrol Coordination</Badge>
-                      <Badge variant="outline">Analytics Dashboard</Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <>
+                {activeModule === 'incidents' && <ZonalSOSMonitoring />}
+                {activeModule === 'tracking' && <ZonalTouristVerification />}
+                {activeModule === 'investigation' && <ZonalCaseManagement />}
+                {activeModule === 'alerts' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Community Alerts</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">Community alert system interface will be implemented here.</p>
+                    </CardContent>
+                  </Card>
+                )}
+                {activeModule === 'analytics' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Performance Analytics</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">Performance analytics dashboard will be implemented here.</p>
+                    </CardContent>
+                  </Card>
+                )}
+              </>
             )}
           </div>
         </div>

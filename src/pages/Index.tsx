@@ -1,13 +1,14 @@
 import { useState } from "react";
 import MainPage from "@/components/MainPage";
 import PoliceLandingPage from "@/components/PoliceLandingPage";
-import LoginPage from "@/components/LoginPage";
 import DashboardSelector from "@/components/DashboardSelector";
+import StateLoginPage from "@/components/StateLoginPage";
+import ZonalLoginPage from "@/components/ZonalLoginPage";
 import StateDashboard from "@/components/StateDashboard";
 import ZonalDashboard from "@/components/ZonalDashboard";
 
 const Index = () => {
-  const [selectedDashboard, setSelectedDashboard] = useState<'main' | 'landing' | 'login' | 'selector' | 'state' | 'zonal'>('main');
+  const [selectedDashboard, setSelectedDashboard] = useState<'main' | 'landing' | 'selector' | 'state-login' | 'zonal-login' | 'state' | 'zonal'>('main');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState<'state' | 'zonal' | null>(null);
 
@@ -16,13 +17,23 @@ const Index = () => {
   };
 
   const handleAccessDashboards = () => {
-    setSelectedDashboard('login');
+    setSelectedDashboard('selector');
   };
 
-  const handleLogin = (role: 'state' | 'zonal') => {
+  const handleDashboardSelect = (type: 'state' | 'zonal') => {
+    setSelectedDashboard(type === 'state' ? 'state-login' : 'zonal-login');
+  };
+
+  const handleStateLogin = () => {
     setIsAuthenticated(true);
-    setUserRole(role);
-    setSelectedDashboard(role);
+    setUserRole('state');
+    setSelectedDashboard('state');
+  };
+
+  const handleZonalLogin = () => {
+    setIsAuthenticated(true);
+    setUserRole('zonal');
+    setSelectedDashboard('zonal');
   };
 
   const handleLogout = () => {
@@ -31,24 +42,12 @@ const Index = () => {
     setSelectedDashboard('landing');
   };
 
-  const handleDashboardSelect = (type: 'state' | 'zonal') => {
-    setSelectedDashboard(type);
-  };
-
   const handleBackToSelector = () => {
-    if (isAuthenticated) {
-      setSelectedDashboard(userRole!);
-    } else {
-      setSelectedDashboard('login');
-    }
+    setSelectedDashboard('selector');
   };
 
   const handleBackToLanding = () => {
     setSelectedDashboard('landing');
-  };
-
-  const handleBackToLogin = () => {
-    setSelectedDashboard('login');
   };
 
   const handleBackToMain = () => {
@@ -66,10 +65,22 @@ const Index = () => {
           onBack={handleBackToMain}
         />
       )}
-      {selectedDashboard === 'login' && (
-        <LoginPage 
-          onLogin={handleLogin}
+      {selectedDashboard === 'selector' && (
+        <DashboardSelector 
+          onSelectDashboard={handleDashboardSelect}
           onBack={handleBackToLanding}
+        />
+      )}
+      {selectedDashboard === 'state-login' && (
+        <StateLoginPage 
+          onLogin={handleStateLogin}
+          onBack={handleBackToSelector}
+        />
+      )}
+      {selectedDashboard === 'zonal-login' && (
+        <ZonalLoginPage 
+          onLogin={handleZonalLogin}
+          onBack={handleBackToSelector}
         />
       )}
       {selectedDashboard === 'state' && (
